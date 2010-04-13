@@ -1,0 +1,13 @@
+= tsxn-rsolr
+
+A simple, extensible Ruby client for Apache Solr. MODIFIED/CUSTOMIZED to add OAuth request signing for POST requests to support 2-legged OAuth.
+
+== Credits
+
+The original gem was written by Matt Mitchell and is located at http://github.com/mwmitchell/rsolr.
+
+== Usage
+
+See the usage of the original gem at http://github.com/mwmitchell/rsolr.  
+
+The additional setup requires that the OAuth consumer key be specified in ENV["oauth_key"] and the OAuth consumer secret be specified in ENV["oauth_secret"].  NOTE:  Only HMAC-SHA1 is supported.
