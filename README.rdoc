@@ -10,4 +10,4 @@ The original gem was written by Matt Mitchell and is located at http://github.co
 
 See the usage of the original gem at http://github.com/mwmitchell/rsolr.  
 
-The additional setup requires that the OAuth consumer key be specified in ENV["oauth_key"] and the OAuth consumer secret be specified in ENV["oauth_secret"].  NOTE:  Only HMAC-SHA1 is supported.
+The additional setup requires that the OAuth consumer key be specified in ENV["oauth_key"] and the OAuth consumer secret be specified in ENV["oauth_secret"].  Only HMAC-SHA1 is supported.

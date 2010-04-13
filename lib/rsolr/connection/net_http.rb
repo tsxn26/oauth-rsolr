@@ -19,10 +19,7 @@ class RSolr::Connection::NetHttp
   end
   
   def post path, data, params={}, headers={}
-    full_url = "#{@uri.scheme}://#{@uri.host}"
-    full_url += @uri.port ? ":#{@uri.port}" : ''
-    full_url += @uri.path + path
-    add_signature("POST", full_url, params)
+    add_signature("POST", path, params)
     
     url = self.build_url path, params
     net_http_response = self.connection.post url, data, headers
@@ -67,7 +64,15 @@ class RSolr::Connection::NetHttp
     return_string
   end
   
-  def create_base_string(method, url, params)
+  def create_base_string(method, path, params)
+    url = "#{@uri.scheme}://#{@uri.host}"
+    port = @uri.port.to_s
+    if !port.blank?
+      if port != "80"
+        url += ":#{port}"
+      end
+    end  
+    url += @uri.path + path
     signature_base = method.upcase
     signature_base.concat("&")
     signature_base.concat(CGI::escape(url))
@@ -84,8 +89,8 @@ class RSolr::Connection::NetHttp
     CGI.escape(value.to_s).gsub("%7E", '~').gsub("+", "%20")
   end
   
-  def add_signature(http_method, full_url, params) 
-    base_string = create_base_string(http_method, full_url, params)
+  def add_signature(http_method, path, params) 
+    base_string = create_base_string(http_method, path, params)
     signature = create_signature(base_string, ENV["oauth_secret"])
     params.merge!("oauth_signature" => signature)
   end
